@@ -67,6 +67,7 @@ h2::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50
 <div class="f"><input id="cn" placeholder="Naam"><input id="ck" type="number" inputmode="numeric" placeholder="kcal"><input id="cp" type="number" inputmode="numeric" placeholder="protein g"></div>
 <div class="f"><button class="pri" style="width:100%" onclick="C()">Apna item add karo</button></div>
 <h2 style="margin-top:16px">Aaj ka khana</h2><div id="lg"></div></div>
+<div class="card" id="pm"><h2>Nutrition</h2><div id="nu"></div><h2 style="margin-top:18px">Kya baaki hai</h2><div id="np"></div><p class="mu" style="margin:10px 0 0">Ye andaza hai (normal katori, mutthi ke hisaab se). Apne add kiye item ke micronutrients count nahi hote. Targets adult male ke approximate ICMR RDA hain.</p></div>
 
 <div class="card" id="pn"><h2>Neend</h2><div class="f" style="margin:0"><input id="sli" type="number" step="0.5" inputmode="decimal" placeholder="Kal raat kitne ghante soye?"><button class="pri" onclick="Sl()">Save</button></div></div>
 <div class="card"><h2>Aaj ka schedule</h2><div id="sc"></div></div>
@@ -77,9 +78,29 @@ h2::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50
 <div><label>Paani (ml)</label><input id="tw" type="number" inputmode="numeric" onchange="T()"></div>
 <div><label>Neend (hrs)</label><input id="ts" type="number" step="0.5" inputmode="decimal" onchange="T()"></div></div>
 <p class="mu" style="margin:10px 0 0">Data sirf is phone ke browser mein save hota hai. Browser data clear karoge toh mit jayega.</p></div>
-<nav><button onclick="go('top')">Home</button><button onclick="go('pw')">Paani</button><button onclick="go('pf')">Khana</button><button onclick="go('pn')">Neend</button><button onclick="go('ph')">History</button></nav>
+<nav><button onclick="go('top')">Home</button><button onclick="go('pw')">Paani</button><button onclick="go('pf')">Khana</button><button onclick="go('pm')">Nutrition</button><button onclick="go('pn')">Neend</button><button onclick="go('ph')">History</button></nav>
 <script>
-const FOODS=[["Roti",100,3],["Rice katori",130,3],["Dal katori",150,8],["Sabzi katori",100,3],["Boiled egg",75,6],["Doodh glass",150,8],["Curd katori",90,5],["Soya chunks 50g",170,26],["Roasted chana",120,7],["Peanuts mutthi",160,7],["Banana",100,1],["Paneer 50g",130,9],["Sattu drink",120,6],["Rajma/chole katori",180,9]];
+const FOODS=[
+["Roti",100,3,20,1,2.5,12,1,40,0.6,100,0,0],
+["Rice katori",130,3,28,0.3,0.5,10,0.4,15,0.6,40,0,0],
+["Dal katori",150,8,22,3,4,40,2,45,1.2,350,0,2],
+["Sabzi katori",100,3,10,5,3,40,1,25,0.4,300,0,15],
+["Palak sabzi",80,3,6,5,3,100,3,60,0.6,450,0,15],
+["Boiled egg",75,6,0.5,5,0,25,0.9,6,0.6,65,0.5,0],
+["Doodh glass",150,8,12,7.5,0,300,0.1,30,1,380,1,2],
+["Curd katori",90,5,5,5,0,120,0.1,12,0.5,150,0.4,1],
+["Soya chunks 50g",170,26,16,0.5,6.5,175,10,135,2.5,1000,0,0],
+["Roasted chana",120,7,18,2,5,50,2,40,1,230,0,1],
+["Peanuts mutthi",160,7,5,14,2.5,25,1.4,55,1,200,0,0],
+["Banana",100,1,25,0.3,2.5,7,0.3,32,0.2,420,0,10],
+["Santra",60,1,15,0.2,3,50,0.1,15,0.1,230,0,70],
+["Amrud",70,2.5,14,1,5,18,0.3,22,0.2,420,0,200],
+["Paneer 50g",130,9,1.5,10,0,150,0.1,8,1,40,0.5,0],
+["Sattu drink",120,6,19,1.5,5,60,2,60,1,220,0,0],
+["Rajma/chole katori",180,9,28,3,8,60,3,60,1.5,450,0,2]];
+const FM={};FOODS.forEach(x=>{FM[x[0]]=x});
+const NU=[["Carbs","g",300],["Fat","g",65],["Fiber","g",30],["Calcium","mg",1000],["Iron","mg",19],["Magnesium","mg",440],["Zinc","mg",17],["Potassium","mg",3500],["Vitamin B12","mcg",2.2],["Vitamin C","mg",80]];
+function MS(f){const a=new Array(10).fill(0);f.forEach(x=>{const r=FM[x.n];if(r)for(let i=0;i<10;i++)a[i]+=r[i+3]});return a}
 const SCH=[["05:30","Uthna"],["05:45","Banana + 2 eggs"],["06:15","Workout / run"],["07:30","Breakfast + doodh"],["13:00","Lunch"],["17:00","Chana + chai"],["21:30","Dinner"],["22:30","Doodh ka glass"],["23:00","Sona"]];
 const WS=[["05:30",2],["06:15",2],["07:30",1],["10:30",1],["12:30",1],["14:30",1],["16:30",1],["17:30",1],["19:00",1],["21:30",1],["22:30",1]];
 const KEY="fittrack_v1";let S=null;
@@ -116,6 +137,11 @@ gi("wn").innerHTML=hb;
 gi("nb").textContent=S.nt?"Notification on (band karne ke liye tap)":"Notification on karo";
 gi("fd").innerHTML=FOODS.map((x,i)=>'<button onclick="A('+i+')">'+esc(x[0])+'<span>'+x[1]+' kcal, '+x[2]+' g</span></button>').join("");
 gi("lg").innerHTML=f.length?f.map((x,i)=>'<div class="li"><span>'+esc(x.n)+' <span class="mu">'+x.t+'</span></span><span>'+x.k+' kcal, '+x.p+' g <button class="x" onclick="X('+i+')" aria-label="Delete">x</button></span></div>').join(""):'<div class="mu">Abhi kuch add nahi kiya.</div>';
+const ms=MS(f);
+gi("nu").innerHTML=NU.map((n,i)=>'<div class="row" style="margin-top:8px"><span>'+n[0]+'</span><span class="mu">'+(Math.round(ms[i]*10)/10)+' / '+n[2]+' '+n[1]+'</span></div><div class="bar" style="height:7px;margin:4px 0"><i style="width:'+pc(ms[i],n[2])+'%"></i></div>').join("");
+const lo=[];for(let i=2;i<10;i++){const r=ms[i]/NU[i][2];if(r<1)lo.push([r,i])}
+lo.sort((a,b)=>a[0]-b[0]);
+gi("np").innerHTML=lo.length?lo.slice(0,3).map(z=>{const i=z[1],n=NU[i],left=Math.round((n[2]-ms[i])*10)/10;const best=FOODS.slice().sort((a,b)=>b[i+3]-a[i+3]).slice(0,3).map(x=>x[0]+" ("+x[i+3]+" "+n[1]+")").join(", ");return '<div class="li" style="display:block"><b>'+n[0]+'</b> <span class="mu">'+left+' '+n[1]+' baaki</span><div class="mu">Mil sakta hai: '+best+'</div></div>'}).join(""):'<div class="mu">Sab micronutrients ke targets pure ho gaye!</div>';
 const nx=SCH.findIndex(s=>s[0]>=c.nw&&!d.d[s[0]]);
 gi("sc").innerHTML=SCH.map((s,i)=>'<div class="li'+(i===nx?' nx':'')+'" onclick="K(\''+s[0]+'\')"><span class="'+(d.d[s[0]]?'dn':'')+'">'+s[0]+'  '+esc(s[1])+'</span><span>'+(d.d[s[0]]?'done':(i===nx?'next':''))+'</span></div>').join("");
 let h='<tr><th>Din</th><th>kcal</th><th>Protein</th><th>Paani</th><th>Neend</th></tr>';
