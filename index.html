@@ -4,82 +4,119 @@
 <title>FitTrack</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>">
 <style>
-:root{--bg:#fff;--fg:#1c1c1a;--mu:#6b6a64;--card:#f4f3ee;--bd:#d9d7cd;--ac:#0f6e56;--acb:#e1f5ee;--wa:#185fa5;--am:#854f0b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1c1a;--fg:#f1efe8;--mu:#b4b2a9;--card:#2c2c2a;--bd:#444441;--ac:#5dcaa5;--acb:#04342c;--wa:#85b7eb;--am:#fac775;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1c1c1a;--fg:#f1efe8;--mu:#b4b2a9;--card:#2c2c2a;--bd:#444441;--ac:#5dcaa5;--acb:#04342c;--wa:#85b7eb;--am:#fac775;color-scheme:dark}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:560px;margin:0 auto;padding:14px 14px 60px}
-h1{font-size:22px;margin:0 0 2px;font-weight:500}h2{font-size:17px;margin:0 0 10px;font-weight:500}
+:root{--bg:#f7f6f1;--fg:#1c1c1a;--mu:#6b6a64;--card:#fff;--bd:#e3e1d8;--ac:#0f6e56;--acb:#e1f5ee;--wa:#185fa5;--wab:#e6f1fb;--am:#ba7517;--co:#d85a30;--on:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141413;--fg:#f1efe8;--mu:#b4b2a9;--card:#232321;--bd:#3a3a37;--ac:#5dcaa5;--acb:#04342c;--wa:#85b7eb;--wab:#0c2a46;--am:#fac775;--co:#f0997b;--on:#141413;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141413;--fg:#f1efe8;--mu:#b4b2a9;--card:#232321;--bd:#3a3a37;--ac:#5dcaa5;--acb:#04342c;--wa:#85b7eb;--wab:#0c2a46;--am:#fac775;--co:#f0997b;--on:#141413;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:560px;margin:0 auto;padding:16px 14px 96px}
+h1{font-size:24px;margin:0;font-weight:600}h2{font-size:17px;margin:0 0 12px;font-weight:600}
 .mu{color:var(--mu);font-size:13px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:12px 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin:14px 0}
 .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.bar{height:10px;background:var(--bd);border-radius:5px;overflow:hidden;margin:6px 0 12px}
-.bar i{display:block;height:100%;background:var(--ac);border-radius:5px}
-.bar.w i{background:var(--wa)}.bar.s i{background:var(--am)}
-button{font:inherit;background:var(--bg);color:var(--fg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;cursor:pointer}
-button:active{background:var(--acb)}
-.pri{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+.bar{height:10px;background:var(--bd);border-radius:5px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--ac);border-radius:5px;transition:width .3s}.bar.w i{background:var(--wa)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tl{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;display:flex;align-items:center;gap:10px}
+.tl b{display:block;font-size:17px;line-height:1.2}.tl span{display:block;font-size:13px;color:var(--mu)}.tl small{display:block;font-size:11px;color:var(--mu)}
+button{font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;cursor:pointer}
+button:active{opacity:.7}.pri{background:var(--ac);color:var(--on);border-color:var(--ac);font-weight:600}
+.wb{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.wb button{background:var(--wab);color:var(--wa);border-color:transparent;font-weight:600;padding:10px 4px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .grid button{text-align:left;font-size:14px;line-height:1.3}.grid span{display:block;font-size:12px;color:var(--mu)}
-input{font:inherit;background:var(--bg);color:var(--fg);border:1px solid var(--bd);border-radius:8px;padding:8px;width:100%;min-width:0}
+input{font:inherit;background:var(--bg);color:var(--fg);border:1px solid var(--bd);border-radius:10px;padding:9px;width:100%;min-width:0}
 .f{display:flex;gap:6px;margin-top:10px}
-.li{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bd);font-size:14px;gap:8px}
+.li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd);font-size:14px;gap:8px}
 .li:last-child{border:0}.x{border:0;background:none;color:var(--mu);padding:2px 8px}
-.nx{background:var(--acb);border-radius:8px;padding:7px 8px;margin:0 -8px}.dn{text-decoration:line-through;color:var(--mu)}
-table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:6px 3px;text-align:right;border-bottom:1px solid var(--bd);font-weight:400}th{color:var(--mu)}td:first-child,th:first-child{text-align:left}
+.nx{background:var(--acb);border-radius:10px;padding:8px;margin:0 -8px;border:0}.dn{text-decoration:line-through;color:var(--mu)}
+.al{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--wab);color:var(--wa);border-radius:14px;padding:12px 14px;margin-top:14px}
+.al span{font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px 3px;text-align:right;border-bottom:1px solid var(--bd);font-weight:400}th{color:var(--mu)}td:first-child,th:first-child{text-align:left}
 label{font-size:13px;color:var(--mu)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:var(--card);border-top:1px solid var(--bd);padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto}
+nav button{border:0;background:none;font-size:13px;color:var(--mu);padding:6px 8px}
 </style></head><body>
-<h1>FitTrack</h1><div class="mu" id="dt"></div>
-<div class="card" id="sum"></div>
-<div class="card"><h2>Paani</h2><div class="row"><button onclick="W(250)">+ 250 ml</button><button onclick="W(500)">+ 500 ml</button><button onclick="W(-250)">Undo</button></div></div>
-<div class="card"><h2>Kya khaya? (tap karo)</h2><div class="grid" id="fd"></div>
+<div id="top"><h1>FitTrack</h1><div class="mu" id="dt"></div></div>
+<div id="bn"></div>
+<div class="tiles" id="sum"></div>
+
+<div class="card" id="pw"><h2>Paani</h2>
+<div id="ws"></div>
+<div class="wb"><button onclick="Wa(150)">150</button><button onclick="Wa(250)">250</button><button onclick="Wa(500)">500</button><button onclick="Wa(1000)">1000</button></div>
+<div class="f"><input id="wa" type="number" inputmode="numeric" placeholder="Custom ml"><input id="wt" type="time" aria-label="Time"><button class="pri" onclick="Wc()">Add</button></div>
+<div class="mu" style="margin-top:4px">Time khali chhodo toh abhi ka time lagega.</div>
+<h2 style="margin-top:16px">Aaj kab piya</h2><div id="wl"></div>
+<h2 style="margin-top:16px">Kab kitna peena hai</h2><div id="wsl"></div>
+<div class="f"><button id="nb" onclick="NT()" style="width:100%"></button></div>
+<div class="mu" style="margin-top:6px">Notification tabhi aayegi jab app khula ho. Band hone par yaad dilane ke liye phone ka alarm use karo.</div></div>
+
+<div class="card" id="pf"><h2>Kya khaya? (tap karo)</h2><div class="grid" id="fd"></div>
 <div class="f"><input id="cn" placeholder="Naam"><input id="ck" type="number" inputmode="numeric" placeholder="kcal"><input id="cp" type="number" inputmode="numeric" placeholder="protein g"></div>
-<div class="f"><button class="pri" style="width:100%" onclick="C()">Apna item add karo</button></div></div>
-<div class="card"><h2>Aaj ka khana</h2><div id="lg"></div></div>
-<div class="card"><h2>Neend</h2><div class="f" style="margin:0"><input id="sl" type="number" step="0.5" inputmode="decimal" placeholder="Kal raat kitne ghante soye?"><button class="pri" onclick="Sl()">Save</button></div></div>
+<div class="f"><button class="pri" style="width:100%" onclick="C()">Apna item add karo</button></div>
+<h2 style="margin-top:16px">Aaj ka khana</h2><div id="lg"></div></div>
+
+<div class="card" id="pn"><h2>Neend</h2><div class="f" style="margin:0"><input id="sli" type="number" step="0.5" inputmode="decimal" placeholder="Kal raat kitne ghante soye?"><button class="pri" onclick="Sl()">Save</button></div></div>
 <div class="card"><h2>Aaj ka schedule</h2><div id="sc"></div></div>
-<div class="card"><h2>Pichhle 7 din</h2><div style="overflow-x:auto"><table id="hs"></table></div></div>
+<div class="card" id="ph"><h2>Pichhle 7 din</h2><div style="overflow-x:auto"><table id="hs"></table></div></div>
 <div class="card"><h2>Targets</h2><div class="grid">
 <div><label>Calories</label><input id="tk" type="number" inputmode="numeric" onchange="T()"></div>
 <div><label>Protein (g)</label><input id="tp" type="number" inputmode="numeric" onchange="T()"></div>
 <div><label>Paani (ml)</label><input id="tw" type="number" inputmode="numeric" onchange="T()"></div>
 <div><label>Neend (hrs)</label><input id="ts" type="number" step="0.5" inputmode="decimal" onchange="T()"></div></div>
-<p class="mu" style="margin:10px 0 0">Data sirf is phone ke browser mein save hota hai. Browser data clear karoge toh ye bhi mit jayega.</p></div>
+<p class="mu" style="margin:10px 0 0">Data sirf is phone ke browser mein save hota hai. Browser data clear karoge toh mit jayega.</p></div>
+<nav><button onclick="go('top')">Home</button><button onclick="go('pw')">Paani</button><button onclick="go('pf')">Khana</button><button onclick="go('pn')">Neend</button><button onclick="go('ph')">History</button></nav>
 <script>
 const FOODS=[["Roti",100,3],["Rice katori",130,3],["Dal katori",150,8],["Sabzi katori",100,3],["Boiled egg",75,6],["Doodh glass",150,8],["Curd katori",90,5],["Soya chunks 50g",170,26],["Roasted chana",120,7],["Peanuts mutthi",160,7],["Banana",100,1],["Paneer 50g",130,9],["Sattu drink",120,6],["Rajma/chole katori",180,9]];
-const SCH=[["05:30","Uthna, paani peena"],["05:45","Banana + 2 eggs"],["06:15","Workout / run"],["07:30","Breakfast + doodh"],["13:00","Lunch"],["17:00","Chana + chai"],["21:30","Dinner"],["22:30","Doodh ka glass"],["23:00","Sona"]];
+const SCH=[["05:30","Uthna"],["05:45","Banana + 2 eggs"],["06:15","Workout / run"],["07:30","Breakfast + doodh"],["13:00","Lunch"],["17:00","Chana + chai"],["21:30","Dinner"],["22:30","Doodh ka glass"],["23:00","Sona"]];
+const WS=[["05:30",2],["06:15",2],["07:30",1],["10:30",1],["12:30",1],["14:30",1],["16:30",1],["17:30",1],["19:00",1],["21:30",1],["22:30",1]];
 const KEY="fittrack_v1";let S=null;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!S||!S.days)S={t:{k:2300,p:130,w:3000,s:7},days:{}};
 function sv(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const gi=i=>document.getElementById(i);
+const go=i=>gi(i).scrollIntoView({behavior:"smooth"});
 const ds=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-const TD=()=>ds(new Date());
-function D(k){k=k||TD();return S.days[k]||(S.days[k]={f:[],w:0,s:0,d:{}})}
+function D(k){k=k||ds(new Date());const d=S.days[k]||(S.days[k]={f:[],w:0,s:0,d:{}});if(!d.wl)d.wl=[];if(!d.n)d.n={};return d}
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const tm=()=>{const n=new Date();return String(n.getHours()).padStart(2,"0")+":"+String(n.getMinutes()).padStart(2,"0")};
 const pc=(v,t)=>Math.min(100,Math.round(v/t*100));
-function bar(l,v,t,u,c){return '<div class="row"><span>'+l+'</span><span class="mu">'+v+' / '+t+' '+u+'</span></div><div class="bar '+c+'"><i style="width:'+pc(v,t)+'%"></i></div>'}
+function SL(){const t=S.t.w;let c=0;return WS.map(s=>{const a=Math.max(50,Math.round(t*s[1]/13/50)*50);c+=a;return{t:s[0],a:a,c:c}})}
+function calc(){const d=D(),sl=SL(),nw=tm();let exp=0;sl.forEach(s=>{if(s.t<=nw)exp=s.c});return{d:d,sl:sl,nw:nw,exp:exp,behind:exp-d.w,ni:sl.findIndex(s=>s.c>d.w)}}
+function tile(v,t,col,lbl,txt,sub){const dash=Math.min(1,v/t)*163.4;return '<div class="tl"><svg width="58" height="58" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--bd)" stroke-width="7"/><circle cx="32" cy="32" r="26" fill="none" stroke="'+col+'" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+dash+' 163.4" transform="rotate(-90 32 32)"/></svg><div><b>'+txt+'</b><span>'+lbl+'</span><small>'+sub+'</small></div></div>'}
 function R(){
-const d=D(),f=d.f,k=f.reduce((a,x)=>a+x.k,0),p=f.reduce((a,x)=>a+x.p,0),t=S.t;
-document.getElementById("dt").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long"});
-document.getElementById("sum").innerHTML=bar("Calories",k,t.k,"kcal","")+bar("Protein",p,t.p,"g","")+bar("Paani",d.w,t.w,"ml","w")+bar("Neend (kal raat)",d.s,t.s,"hrs","s")+'<div class="mu">Baaki: '+Math.max(0,t.k-k)+' kcal, '+Math.max(0,t.p-p)+' g protein, '+Math.max(0,t.w-d.w)+' ml paani</div>';
-document.getElementById("fd").innerHTML=FOODS.map((x,i)=>'<button onclick="A('+i+')">'+esc(x[0])+'<span>'+x[1]+' kcal, '+x[2]+' g</span></button>').join("");
-document.getElementById("lg").innerHTML=f.length?f.map((x,i)=>'<div class="li"><span>'+esc(x.n)+' <span class="mu">'+x.t+'</span></span><span>'+x.k+' kcal, '+x.p+' g <button class="x" onclick="X('+i+')">x</button></span></div>').join(""):'<div class="mu">Abhi kuch add nahi kiya.</div>';
-const nw=tm();let nxt=SCH.findIndex(s=>s[0]>=nw&&!d.d[s[0]]);
-document.getElementById("sc").innerHTML=SCH.map((s,i)=>'<div class="li'+(i===nxt?' nx':'')+'" onclick="K(\''+s[0]+'\')"><span class="'+(d.d[s[0]]?'dn':'')+'">'+s[0]+'  '+esc(s[1])+'</span><span>'+(d.d[s[0]]?'done':(i===nxt?'next':''))+'</span></div>').join("");
+const c=calc(),d=c.d,f=d.f,t=S.t,k=f.reduce((a,x)=>a+x.k,0),p=f.reduce((a,x)=>a+x.p,0),ns=c.sl[c.ni];
+gi("dt").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long"});
+gi("sum").innerHTML=tile(k,t.k,"var(--ac)","Calories",k,"/ "+t.k+" kcal")+tile(p,t.p,"var(--co)","Protein",p+" g","/ "+t.p+" g")+tile(d.w,t.w,"var(--wa)","Paani",(d.w/1000).toFixed(2)+" L","/ "+(t.w/1000)+" L")+tile(d.s,t.s,"var(--am)","Neend",d.s+" h","/ "+t.s+" h");
+const na=ns?ns.a:250;
+gi("bn").innerHTML=(c.behind>=200&&d.w<t.w)?'<div class="al"><div><b>Paani peene ka time</b><br><span>'+c.behind+' ml peeche ho. Abhi tak '+d.w+' ml.</span></div><button class="pri" onclick="Wa('+na+')">+ '+na+' ml</button></div>':"";
+let st=d.w>=t.w?"Aaj ka target pura ho gaya!":(c.behind>=200?c.behind+" ml peeche ho, ab pee lo.":"Sahi chal rahe ho.");
+if(ns&&d.w<t.w)st+=" Agla: "+ns.t+", "+ns.a+" ml.";
+gi("ws").innerHTML='<div class="row"><b style="font-size:22px">'+d.w+' ml</b><span class="mu">/ '+t.w+' ml</span></div><div class="bar w"><i style="width:'+pc(d.w,t.w)+'%"></i></div><div class="mu">'+st+'</div>';
+gi("wl").innerHTML=d.wl.length?d.wl.map((x,i)=>'<div class="li"><span>'+x.t+'</span><span>'+x.ml+' ml <button class="x" onclick="Wx('+i+')" aria-label="Delete">x</button></span></div>').join(""):'<div class="mu">Abhi paani add nahi kiya.</div>';
+gi("wsl").innerHTML=c.sl.map((s,i)=>{const dn=s.c<=d.w;return '<div class="li'+(i===c.ni?' nx':'')+'"><span class="'+(dn?'dn':'')+'">'+s.t+'  '+s.a+' ml</span><span>'+(dn?'done':(i===c.ni?(s.t<=c.nw?'abhi':'next'):''))+'</span></div>'}).join("");
+gi("nb").textContent=S.nt?"Notification on (band karne ke liye tap)":"Notification on karo";
+gi("fd").innerHTML=FOODS.map((x,i)=>'<button onclick="A('+i+')">'+esc(x[0])+'<span>'+x[1]+' kcal, '+x[2]+' g</span></button>').join("");
+gi("lg").innerHTML=f.length?f.map((x,i)=>'<div class="li"><span>'+esc(x.n)+' <span class="mu">'+x.t+'</span></span><span>'+x.k+' kcal, '+x.p+' g <button class="x" onclick="X('+i+')" aria-label="Delete">x</button></span></div>').join(""):'<div class="mu">Abhi kuch add nahi kiya.</div>';
+const nx=SCH.findIndex(s=>s[0]>=c.nw&&!d.d[s[0]]);
+gi("sc").innerHTML=SCH.map((s,i)=>'<div class="li'+(i===nx?' nx':'')+'" onclick="K(\''+s[0]+'\')"><span class="'+(d.d[s[0]]?'dn':'')+'">'+s[0]+'  '+esc(s[1])+'</span><span>'+(d.d[s[0]]?'done':(i===nx?'next':''))+'</span></div>').join("");
 let h='<tr><th>Din</th><th>kcal</th><th>Protein</th><th>Paani</th><th>Neend</th></tr>';
 for(let i=0;i<7;i++){const q=new Date();q.setDate(q.getDate()-i);const e=S.days[ds(q)];
 const ek=e?e.f.reduce((a,x)=>a+x.k,0):0,ep=e?e.f.reduce((a,x)=>a+x.p,0):0;
 h+='<tr><td>'+q.toLocaleDateString("en-IN",{weekday:"short",day:"numeric"})+'</td><td>'+(e?ek:"-")+'</td><td>'+(e?ep:"-")+'</td><td>'+(e?(e.w/1000).toFixed(1)+" L":"-")+'</td><td>'+(e&&e.s?e.s+" h":"-")+'</td></tr>'}
-document.getElementById("hs").innerHTML=h;
-document.getElementById("tk").value=t.k;document.getElementById("tp").value=t.p;document.getElementById("tw").value=t.w;document.getElementById("ts").value=t.s;
-const sl=document.getElementById("sl");if(document.activeElement!==sl)sl.value=d.s||""}
+gi("hs").innerHTML=h;
+if(document.activeElement.tagName!=="INPUT"){gi("tk").value=t.k;gi("tp").value=t.p;gi("tw").value=t.w;gi("ts").value=t.s;gi("sli").value=d.s||""}}
+function Wa(ml,at){ml=+ml;if(!(ml>0&&ml<=3000)){alert("Sahi ml daalo");return}const d=D();d.wl.push({t:at||tm(),ml:ml});d.wl.sort((a,b)=>a.t<b.t?-1:a.t>b.t?1:0);d.w+=ml;sv();R()}
+function Wc(){const v=gi("wa").value,t=gi("wt").value;Wa(v,t||null);gi("wa").value="";gi("wt").value=""}
+function Wx(i){const d=D(),e=d.wl.splice(i,1)[0];d.w=Math.max(0,d.w-e.ml);sv();R()}
 function A(i){const x=FOODS[i];D().f.push({n:x[0],k:x[1],p:x[2],t:tm()});sv();R()}
-function C(){const n=document.getElementById("cn").value.trim(),k=+document.getElementById("ck").value,p=+document.getElementById("cp").value||0;if(!n||!k){alert("Naam aur kcal daalo");return}D().f.push({n:n,k:k,p:p,t:tm()});["cn","ck","cp"].forEach(i=>document.getElementById(i).value="");sv();R()}
+function C(){const n=gi("cn").value.trim(),k=+gi("ck").value,p=+gi("cp").value||0;if(!n||!k){alert("Naam aur kcal daalo");return}D().f.push({n:n,k:k,p:p,t:tm()});["cn","ck","cp"].forEach(i=>gi(i).value="");sv();R()}
 function X(i){D().f.splice(i,1);sv();R()}
-function W(n){const d=D();d.w=Math.max(0,d.w+n);sv();R()}
-function Sl(){const v=+document.getElementById("sl").value;if(!(v>=0&&v<=24)){alert("Sahi ghante daalo");return}D().s=v;sv();R()}
+function Sl(){const v=+gi("sli").value;if(!(v>=0&&v<=24)){alert("Sahi ghante daalo");return}D().s=v;sv();R()}
 function K(t){const d=D();d.d[t]=!d.d[t];sv();R()}
-function T(){const g=i=>+document.getElementById(i).value||0;S.t={k:g("tk")||2300,p:g("tp")||130,w:g("tw")||3000,s:g("ts")||7};sv();R()}
-R();setInterval(R,60000);
+function T(){const g=i=>+gi(i).value||0;S.t={k:g("tk")||2300,p:g("tp")||130,w:g("tw")||3000,s:g("ts")||7};sv();R()}
+async function NT(){if(typeof Notification==="undefined"){alert("Is browser mein notification nahi hai");return}
+if(S.nt){S.nt=false}else{let p=Notification.permission;if(p!=="granted"){try{p=await Notification.requestPermission()}catch(e){}}S.nt=p==="granted";if(!S.nt)alert("Notification allow nahi hui")}sv();R()}
+function Nt(){if(!S.nt||typeof Notification==="undefined"||Notification.permission!=="granted")return;
+const c=calc(),s=c.sl.filter(x=>x.t<=c.nw&&x.c>c.d.w+150&&!c.d.n[x.t]).pop();
+if(s){c.d.n[s.t]=1;sv();try{new Notification("Paani peelo",{body:"Ab "+s.a+" ml pi lo. Abhi tak "+c.d.w+" ml.",tag:"water"});if(navigator.vibrate)navigator.vibrate(200)}catch(e){}}}
+R();Nt();setInterval(function(){R();Nt()},60000);
 </script></body></html>
